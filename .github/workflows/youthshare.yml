@@ -18,7 +18,7 @@ jobs:
           node-version: 14.x
       - name: npm install
         run: |
-          cd ~/youth
+          cd ~/sn0415
           npm install
           npm install cron
           npm install request
