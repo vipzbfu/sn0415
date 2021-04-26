@@ -25,5 +25,5 @@ jobs:
           npm install md5-node
       - name: '运行 【youthshare】'
         run: |
-          cd ~/youth   
+          cd ~/sn0415   
           node Task/youthshare.js
