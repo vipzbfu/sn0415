@@ -1,12 +1,12 @@
-name: CenBoMin-sync
+name: passerby-b-sync
 on:
   schedule:
-    - cron: '1 */3 * * *'
+    - cron: '12 */3 * * *'
   workflow_dispatch:
   watch:
     types: started
   repository_dispatch:
-    types: sync-CenBoMin-GithubSync
+    types: sync-passerby-b-JavaScript
 jobs:
   repo-sync:
     env:
@@ -18,11 +18,11 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: sync CenBoMin-GithubSync
+      - name: sync passerby-b-JavaScript
         uses: repo-sync/github-sync@v2
         if: env.PAT
         with:
-          source_repo: "https://github.com/CenBoMin/GithubSync.git"
+          source_repo: "https://github.com/passerby-b/JDDJ.git"
           source_branch: "main"
-          destination_branch: "CenBoMin"
+          destination_branch: "passerby-b"
           github_token: ${{ secrets.PAT }}
