@@ -1,28 +1,29 @@
-name: tom-sync
+name: youthshare
+
 on:
-  schedule:
-    - cron: '11 */3 * * *'
   workflow_dispatch:
-  watch:
-    types: started
-  repository_dispatch:
-    types: sync-tom-JavaScript
+  schedule:
+     - cron: '0 0-23/3 * * *'
 jobs:
-  repo-sync:
-    env:
-      PAT: ${{ secrets.PAT }} 
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest    
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        run: |
+          git clone https://github.com/lovezbfu/youth.git ~/youth
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
         with:
-          persist-credentials: false
-
-      - name: sync tom-JavaScript
-        uses: repo-sync/github-sync@v2
-        if: env.PAT
-        with:
-          source_repo: "https://github.com/xl2101200/-.git"
-          source_branch: "main"
-          destination_branch: "Tom"
-          github_token: ${{ secrets.PAT }}
+          node-version: 14.x
+      - name: npm install
+        run: |
+          cd ~/youth
+          npm install
+          npm install cron
+          npm install request
+          npm install md5-node
+      - name: '运行 【youthshare】'
+        run: |
+          cd ~/youth   
+          node Task/youthshare.js
